@@ -19,50 +19,96 @@
             color: white;
             padding: 30px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
         h1 { margin: 0; font-size: 2em; }
         .subtitle { opacity: 0.9; margin-top: 10px; }
         .metrics {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
         .metric-card {
             background: white;
-            padding: 20px;
+            padding: 18px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             text-align: center;
         }
         .metric-value {
-            font-size: 2em;
+            font-size: 1.9em;
             font-weight: bold;
             color: #1a5276;
         }
         .metric-label {
             color: #666;
             margin-top: 5px;
+            font-size: 0.9em;
         }
-        .chart {
+        .exec-summary {
             background: white;
-            padding: 20px;
+            border-left: 4px solid #1a5276;
+            padding: 18px 22px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
-        .chart img {
+        .exec-summary h2 { margin-top: 0; color: #1a5276; }
+        .exec-summary li { margin-bottom: 6px; }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+        }
+        .tab-btn {
+            background: #dfe6ee;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            color: #1a5276;
+        }
+        .tab-btn.active { background: white; }
+        .tab-panel {
+            display: none;
+            background: white;
+            border-radius: 0 8px 8px 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tab-panel.active { display: block; }
+        details.chart {
+            border: 1px solid #e3e8ee;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        details.chart summary {
+            cursor: pointer;
+            padding: 14px 18px;
+            font-weight: 600;
+            color: #1a5276;
+            background: #f8fafc;
+            list-style: none;
+        }
+        details.chart summary::-webkit-details-marker { display: none; }
+        details.chart summary::before {
+            content: "▸ ";
+            display: inline-block;
+            margin-right: 6px;
+            transition: transform 0.15s;
+        }
+        details.chart[open] summary::before { transform: rotate(90deg); }
+        details.chart img {
             max-width: 100%;
             height: auto;
             display: block;
             margin: 0 auto;
-        }
-        .chart h2 {
-            margin-top: 0;
-            color: #1a5276;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            padding: 10px 18px 18px;
         }
         footer {
             text-align: center;
@@ -77,6 +123,14 @@
             padding: 15px;
             margin-bottom: 20px;
             border-radius: 4px;
+        }
+        .gap-note {
+            background: #e8f0fe;
+            border-left: 4px solid #1a73e8;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 0.95em;
         }
         .download-btn {
             display: inline-block;
@@ -95,7 +149,7 @@
 <body>
     <header>
         <h1>LC Attendance Analytics Report</h1>
-        <div class="subtitle">Generated on 2026-08-21 10:49</div>
+        <div class="subtitle">Generated on 2026-08-21 10:59</div>
         <div class="subtitle">Data source: Local attendance records (anonymized)</div>
         <a class="download-btn" href="LC_Attendance_Report.pdf" download>⬇ Download PDF Report</a>
     </header>
@@ -103,6 +157,15 @@
     <div class="note">
         <strong>Privacy note:</strong> All student and staff names have been replaced with anonymized identifiers.
         This report is intended for internal policy and administrative review only.
+    </div>
+
+    <div class="exec-summary">
+        <h2>Executive Summary</h2>
+        <ul>
+            <li>Peer Tutoring accounts for 6,080 of 13,383 sessions (45%) and 765 unique students — it operates at a very different scale from teacher-led services and is reported separately.</li>
+            <li>Teacher-led services delivered 7,303 sessions to 326 unique students across 6 programmes.</li>
+            <li>Total recorded service time is 2,920.5 hours (where duration data is available).</li>
+        </ul>
     </div>
 
     <div class="metrics">
@@ -134,59 +197,89 @@
     
     </div>
 
-    <div class="chart">
-        <h2>Sessions by Programme and Academic Year</h2>
-        <img src="sessions_by_programme_year.png" alt="Sessions by Programme and Academic Year">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(0)">Overview & Trends</button>
+        <button class="tab-btn" onclick="showTab(1)">Teacher-led Services</button>
+        <button class="tab-btn" onclick="showTab(2)">Student Engagement</button>
     </div>
-        
-    <div class="chart">
-        <h2>Unique Students by Programme</h2>
-        <img src="students_by_programme.png" alt="Unique Students by Programme">
-    </div>
-        
-    <div class="chart">
-        <h2>Total Service Hours by Programme</h2>
-        <img src="hours_by_programme.png" alt="Total Service Hours by Programme">
-    </div>
-        
-    <div class="chart">
-        <h2>Sessions Over Time</h2>
-        <img src="monthly_trend.png" alt="Sessions Over Time">
-    </div>
-        
-    <div class="chart">
-        <h2>Sessions by Day of Week</h2>
-        <img src="sessions_by_day_of_week.png" alt="Sessions by Day of Week">
-    </div>
-        
-    <div class="chart">
-        <h2>Top Teachers/Tutors by Sessions</h2>
-        <img src="top_teachers.png" alt="Top Teachers/Tutors by Sessions">
-    </div>
-        
-    <div class="chart">
-        <h2>Top Faculties by Participation</h2>
-        <img src="faculty_distribution.png" alt="Top Faculties by Participation">
-    </div>
-        
-    <div class="chart">
-        <h2>Distribution by Year of Study</h2>
-        <img src="year_of_study.png" alt="Distribution by Year of Study">
-    </div>
-        
-    <div class="chart">
-        <h2>Sessions per Student</h2>
-        <img src="repeat_attendance.png" alt="Sessions per Student">
-    </div>
-        
-    <div class="chart">
-        <h2>Sessions Heatmap: Programme × Month</h2>
-        <img src="heatmap_programme_month.png" alt="Sessions Heatmap: Programme × Month">
-    </div>
-        
+    <div class="tab-panel active" id="panel-0">
+
+        <details class="chart" open>
+            <summary>Sessions by Service Category and Academic Year</summary>
+            <img src="sessions_by_category_year.png" alt="Sessions by Service Category and Academic Year">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Sessions Over Time</summary>
+            <img src="monthly_trend.png" alt="Sessions Over Time">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Sessions Heatmap: Programme × Month</summary>
+            <img src="heatmap_programme_month.png" alt="Sessions Heatmap: Programme × Month">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Sessions by Day of Week</summary>
+            <img src="sessions_by_day_of_week.png" alt="Sessions by Day of Week">
+        </details>
+                </div>
+    <div class="tab-panel" id="panel-1">
+
+        <details class="chart" open>
+            <summary>Teacher-led Sessions by Programme and Academic Year</summary>
+            <img src="sessions_by_programme_year.png" alt="Teacher-led Sessions by Programme and Academic Year">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Unique Students by Programme</summary>
+            <img src="students_by_programme.png" alt="Unique Students by Programme">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Total Service Hours by Programme</summary>
+            <img src="hours_by_programme.png" alt="Total Service Hours by Programme">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Top Teachers/Tutors by Sessions</summary>
+            <img src="top_teachers.png" alt="Top Teachers/Tutors by Sessions">
+        </details>
+                </div>
+    <div class="tab-panel" id="panel-2">
+
+        <details class="chart" open>
+            <summary>Sessions per Student</summary>
+            <img src="repeat_attendance.png" alt="Sessions per Student">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Distribution by Year of Study</summary>
+            <img src="year_of_study.png" alt="Distribution by Year of Study">
+        </details>
+            
+        <div class="gap-note">
+            <strong>Data gap:</strong> student background information (faculty, major, year of study)
+            is currently collected only for a small subset of programmes (mainly SLS). To enable
+            granular analysis of who uses LC services — e.g. participation by faculty or year of
+            study — attendance forms should capture these fields consistently across all programmes.
+        </div>
+            </div>
+
     <footer>
         <p>Generated locally from anonymized LC attendance data.</p>
         <p>For questions or access to the underlying data, contact the Innovation Officer.</p>
     </footer>
+
+    <script>
+        function showTab(index) {
+            document.querySelectorAll('.tab-panel').forEach(function(p, i) {
+                p.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.tab-btn').forEach(function(b, i) {
+                b.classList.toggle('active', i === index);
+            });
+        }
+    </script>
 </body>
 </html>
