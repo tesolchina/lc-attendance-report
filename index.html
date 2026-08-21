@@ -132,6 +132,28 @@
             border-radius: 4px;
             font-size: 0.95em;
         }
+        .kpi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        .kpi-table th {
+            background: #1a5276;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            position: sticky;
+        }
+        .kpi-table td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #e3e8ee;
+        }
+        .kpi-table tr:nth-child(even) { background: #f8fafc; }
+        .kpi-table td:nth-child(2), .kpi-table td:nth-child(3), .kpi-table td:nth-child(4),
+        .kpi-table th:nth-child(2), .kpi-table th:nth-child(3), .kpi-table th:nth-child(4) {
+            text-align: right;
+        }
         .download-btn {
             display: inline-block;
             margin-top: 18px;
@@ -149,7 +171,7 @@
 <body>
     <header>
         <h1>LC Attendance Analytics Report</h1>
-        <div class="subtitle">Generated on 2026-08-21 10:59</div>
+        <div class="subtitle">Generated on 2026-08-21 12:29</div>
         <div class="subtitle">Data source: Local attendance records (anonymized)</div>
         <a class="download-btn" href="LC_Attendance_Report.pdf" download>⬇ Download PDF Report</a>
     </header>
@@ -162,8 +184,8 @@
     <div class="exec-summary">
         <h2>Executive Summary</h2>
         <ul>
-            <li>Peer Tutoring accounts for 6,080 of 13,383 sessions (45%) and 765 unique students — it operates at a very different scale from teacher-led services and is reported separately.</li>
-            <li>Teacher-led services delivered 7,303 sessions to 326 unique students across 6 programmes.</li>
+            <li>Peer Tutoring (Theme 4: Self-Regulated & Peer-Assisted Learning) accounts for 6,080 of 13,383 sessions (45%) and 765 unique students — it operates at a very different scale from teacher-led services and is reported separately.</li>
+            <li>Teacher-led services delivered 7,303 sessions to 326 unique students across 6 programmes, spanning Themes 1–3 (literacy, intercultural communication, academic/professional communication).</li>
             <li>Total recorded service time is 2,920.5 hours (where duration data is available).</li>
         </ul>
     </div>
@@ -197,6 +219,34 @@
     
     </div>
 
+    <div class="metric-card" style="text-align:left; padding: 18px 22px;">
+        <h2 style="margin-top:0; color:#1a5276;">Programme KPI Summary</h2>
+        <table class="kpi-table">
+            <thead><tr><th>Programme</th><th>Sessions</th><th>Unique Students</th><th>Service Hours</th></tr></thead>
+            <tbody>
+            <tr><td>Courses and Workshops</td><td>5,750</td><td>5</td><td>0.0</td></tr>
+            <tr><td>AWSALL</td><td>306</td><td>111</td><td>306.0</td></tr>
+            <tr><td>EID</td><td>0</td><td>0</td><td>0.0</td></tr>
+            <tr><td>LLO</td><td>241</td><td>21</td><td>44.0</td></tr>
+            <tr><td>ERPP</td><td>16</td><td>16</td><td>63.5</td></tr>
+            <tr><td>SLS</td><td>167</td><td>122</td><td>0.0</td></tr>
+            <tr><td>SWES</td><td>823</td><td>54</td><td>2,507.0</td></tr>
+            <tr><td>Peer Tutoring</td><td>6,080</td><td>765</td><td>0.0</td></tr>
+            </tbody>
+        </table>
+
+        <h2 style="color:#1a5276;">LEP Strategic Theme Summary</h2>
+        <table class="kpi-table">
+            <thead><tr><th>Strategic Theme</th><th>Sessions</th><th>Unique Students</th><th>Service Hours</th></tr></thead>
+            <tbody>
+            <tr><td>1. Advanced Literacy & Multilingual</td><td>6,573</td><td>59</td><td>2,507.0</td></tr>
+            <tr><td>4. Self-Regulated & Peer-Assisted Learning</td><td>6,080</td><td>765</td><td>0.0</td></tr>
+            <tr><td>3. Academic & Professional Communication</td><td>563</td><td>146</td><td>413.5</td></tr>
+            <tr><td>2. Interpersonal & Cultural Competency</td><td>167</td><td>122</td><td>0.0</td></tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="tabs">
         <button class="tab-btn active" onclick="showTab(0)">Overview & Trends</button>
         <button class="tab-btn" onclick="showTab(1)">Teacher-led Services</button>
@@ -207,6 +257,11 @@
         <details class="chart" open>
             <summary>Sessions by Service Category and Academic Year</summary>
             <img src="sessions_by_category_year.png" alt="Sessions by Service Category and Academic Year">
+        </details>
+            
+        <details class="chart" open>
+            <summary>Sessions by LEP Strategic Theme and Academic Year</summary>
+            <img src="sessions_by_theme_year.png" alt="Sessions by LEP Strategic Theme and Academic Year">
         </details>
             
         <details class="chart" open>
